@@ -61,6 +61,7 @@
     },
     "dependencies": {
       "tslint": "^5.11.0",
+      "material-ui": "^0.19.4",
       "material-ui-datetimepicker" : "1.0.7"
     }
   }
