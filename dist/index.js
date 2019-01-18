@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import DateTimePicker from 'material-ui-datetimepicker';
+import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog'
+import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 
-class DateTimePicker extends Component {
+class DateTimePickerWeb extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -18,4 +21,4 @@ class DateTimePicker extends Component {
   }
 }
 
-export default DateTimePicker;
+export default DateTimePickerWeb;
