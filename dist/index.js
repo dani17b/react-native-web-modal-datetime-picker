@@ -1,36 +1,84 @@
 import React, { Component } from 'react';
-import { View,Text } from 'react-native';
+import { View } from 'react-native';
 import MomentUtils from '@date-io/moment';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import { TimePicker } from 'material-ui-pickers';
 import { DatePicker } from 'material-ui-pickers';
 import { DateTimePicker } from 'material-ui-pickers';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+
+import lightBlue from '@material-ui/core/colors/lightBlue';
+
+const materialTheme = createMuiTheme({
+  overrides: {
+    MuiPickersToolbar: {
+      toolbar: {
+        backgroundColor: lightBlue.A200,
+      },
+    },
+    MuiPickersCalendarHeader: {
+      switchHeader: {
+        backgroundColor: lightBlue.A200,
+        color: 'white',
+      },
+    },
+    MuiPickersDay: {
+      day: {
+        color: lightBlue.A700,
+      },
+      selected: {
+        backgroundColor: lightBlue['400'],
+      },
+      current: {
+        color: lightBlue['900'],
+      },
+    },
+    MuiPickersModal: {
+      dialogAction: {
+        color: lightBlue['400'],
+      },
+    },
+    MuiModal : {
+      root : {
+        backgroundColor : "rgba(255,255,255,0.25)",
+        zIndex : 99999
+      }
+    }
+  },
+});
+
 class DateTimePickerWeb extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dateTime : null,
-      selectedDate: new Date()
+      selectedDate: this.props.date ? this.props.date : new Date()
     };
+  }
+
+  componentWillReceiveProps(newProps){
+    if(newProps.isVisible){
+      this.refs.picker.open();
+    }else{
+      this.refs.picker.close();
+    }
   }
 
   handleDateChange = date => {
     this.setState({ selectedDate: date });
+    this.props.onConfirm(date);
   };
-
-  setDate = (dateTime) => this.setState({ dateTime })
-
   render() {
-    const { style } = this.props;
-
     return (
-      <View style={{width : "100%", height : "100%", position : "fixed", backgroundColor : "red"}}>
-        <Text>Modal para el DateTimePicker</Text>
+      <View style={{opacity : 0}}>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <DatePicker value={selectedDate} onChange={this.handleDateChange} />
-          <TimePicker value={selectedDate} onChange={this.handleDateChange} />
-          <DateTimePicker value={selectedDate} onChange={this.handleDateChange} />
+          <MuiThemeProvider theme={materialTheme}>
+            <DateTimePicker 
+              ref="picker" 
+              value={this.state.selectedDate} 
+              onChange={this.handleDateChange} 
+            />
+          </MuiThemeProvider>
         </MuiPickersUtilsProvider>
       </View>
     );
