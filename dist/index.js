@@ -23,6 +23,14 @@ class DateTimePickerWeb extends Component {
 
     this.materialTheme = createMuiTheme({
       overrides: {
+        MuiInputBase : {
+          input : {
+            display : "none"
+          },
+          root : {
+            display : "none"
+          }
+        },
         MuiPickersToolbar: {
           toolbar: {
             backgroundColor: primaryColor,
@@ -88,9 +96,11 @@ class DateTimePickerWeb extends Component {
   }
 
   componentWillReceiveProps(newProps){
-    if(newProps.isVisible){
+    if(newProps.isVisible && !this.props.isVisible){
       this.refs.picker.open();
-    }else{
+    }
+    
+    if(!newProps.isVisible && this.props.isVisible){
       this.refs.picker.close();
     }
 
