@@ -22,6 +22,9 @@ class DateTimePickerWeb extends Component {
     var primaryColor = this.props.primaryColor || lightBlue['400'];
 
     this.materialTheme = createMuiTheme({
+      typography: {
+        useNextVariants: true,
+      },
       overrides: {
         MuiInputBase : {
           input : {
@@ -37,12 +40,12 @@ class DateTimePickerWeb extends Component {
           },
         },
         MuiPickersDay: {
-          selected: {
-            backgroundColor: primaryColor,
+          isSelected : {
+            backgroundColor : primaryColor
           },
           current: {
             color: "#333333",
-          },
+          }        
         },
         MuiPickersModal: {
           dialogAction: {
@@ -74,11 +77,6 @@ class DateTimePickerWeb extends Component {
           thumb : {
             backgroundColor : primaryColor,
             borderColor : primaryColor
-          }
-        },
-        MuiPickersClockNumber : {
-          selected : {
-            backgroundColor : primaryColor
           }
         },
         MuiModal : {
